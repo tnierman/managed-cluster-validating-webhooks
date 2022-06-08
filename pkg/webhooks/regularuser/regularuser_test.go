@@ -565,6 +565,31 @@ func TestCustomDomains(t *testing.T) {
 			operation:       admissionv1.Create,
 			shouldBeAllowed: false,
 		},
+		// TODO: DELETEME
+		{
+			testID:          "api",
+			targetName: 	 "api",
+			targetResource:  "customdomains",
+			targetKind:      "CustomDomain",
+			targetVersion:   "v1alpha1",
+			targetGroup:     "managed.openshift.io",
+			username:        "dedi-admin",
+			userGroups:      []string{"system:authenticated", "system:authenticated:oauth", "dedicated-admins"},
+			operation:       admissionv1.Delete,
+			shouldBeAllowed: true,
+		},
+		{
+			testID:          "api",
+			targetName: 	 "api",
+			targetResource:  "customdomains",
+			targetKind:      "CustomDomain",
+			targetVersion:   "v1alpha1",
+			targetGroup:     "managed.openshift.io",
+			username:        "dedi-admin",
+			userGroups:      []string{"system:authenticated", "system:authenticated:oauth", "dedicated-admins"},
+			operation:       admissionv1.Create,
+			shouldBeAllowed: true,
+		},
 	}
 	runRegularuserTests(t, tests)
 }
